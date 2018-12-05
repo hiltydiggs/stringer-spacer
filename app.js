@@ -28,11 +28,17 @@ function calculateGaps(span, onCenter) {
   let totalStringers = totalGaps + 1;
   let spacing = span / totalGaps;
   let decimal = spacing % 1;
-  switch (decimal) {
-    case (decimal > 0.937 || decimal < 0.062):
-      decimal = 0;
-  }
-  updateDisplay(totalStringers, spacing);
+  let fraction = '';
+  if (decimal > 0.938 || decimal < 0.062) { fraction = '--'; } else
+  if (decimal < 0.187) { fraction = '1/8'; } else
+  if (decimal < 0.312) { fraction = '1/4' } else
+  if (decimal < 0.437) { fraction = '3/8'} else
+  if (decimal < 0.562) { fraction = '1/2' } else
+  if (decimal < 0.687) { fraction = '5/8' } else
+  if (decimal < 0.812) { fraction = '3/4' } else
+  if (decimal < 0.937) { fraction = '7/8' };
+  let returnSpacing = `${spacing.toFixed(0)} ${fraction}`;
+  updateDisplay(totalStringers, returnSpacing);
 }
 
 function updateDisplay(x, y) {
